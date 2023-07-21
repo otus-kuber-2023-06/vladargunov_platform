@@ -1,3 +1,18 @@
+# Домашнее задание 2
+
+1. Почему поды не обновились при обновлении манифеста ReplicaSet?
+
+Исходя из [документации](https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/), ReplicaSet отвечает только за контроль необходимого кол-ва подов, но не за их обновление. Напротив, Deployment предоставляет дополнительные возможности также и обновления подов.
+
+Как запустить задание с 2 звездами (име кластер развернутый при помщи kind):
+
+- Создать namespace monitoring: `kubectl create ns monitoring`
+
+- Применить `node-exporter-deamonset.yaml`: `kubectl apply -f node-exporter-deamonset.yaml` 
+
+- Проверить что поды создались на всех нодах, включая master-nodes/control-planes: `kubectl get ds -n monitoring`
+
+
 # Домашнее задание 1
 
 1. Почему все pod в namespace kube-system восстановились после удаления?
