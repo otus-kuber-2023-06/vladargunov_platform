@@ -12,7 +12,7 @@ metadata:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: carol
+  name: get_list_watch_pods
   namespace: prometheus
 rules:
 - apiGroups: ["*"]
@@ -25,10 +25,11 @@ metadata:
   name: carol
   namespace: prometheus
 subjects:
-- kind: ServiceAccount
-  name: carol
-  namespace: prometheus
+  - apiGroup: rbac.authorization.k8s.io
+    kind: Group
+    name: system:serviceaccounts:prometheus
+    namespace: prometheus
 roleRef:
   kind: ClusterRole
-  name: carol
+  name: get_list_watch_pods
   apiGroup: rbac.authorization.k8s.io
