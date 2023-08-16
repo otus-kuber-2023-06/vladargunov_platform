@@ -10,7 +10,7 @@ metadata:
   namespace: dev
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
+kind: ClusterRole
 metadata:
   name: jane
   namespace: dev
@@ -19,6 +19,20 @@ rules:
   resources: ["*"]
   verbs: ["*"]
 ---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: jane
+  namespace: dev
+subjects:
+- kind: ServiceAccount
+  name: jane
+  namespace: dev
+roleRef:
+  kind: ClusterRole
+  name: jane
+  apiGroup: rbac.authorization.k8s.io
+---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -26,7 +40,7 @@ metadata:
   namespace: dev
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
+kind: ClusterRole
 metadata:
   name: ken
   namespace: dev
@@ -34,3 +48,17 @@ rules:
 - apiGroups: ["*"]
   resources: ["*"]
   verbs: ["view"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: ken
+  namespace: dev
+subjects:
+- kind: ServiceAccount
+  name: ken
+  namespace: dev
+roleRef:
+  kind: ClusterRole
+  name: ken
+  apiGroup: rbac.authorization.k8s.io

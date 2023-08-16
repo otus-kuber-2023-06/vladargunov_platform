@@ -10,10 +10,25 @@ metadata:
   namespace: prometheus
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
+kind: ClusterRole
 metadata:
-  name: bob
+  name: carol
+  namespace: prometheus
 rules:
 - apiGroups: ["*"]
   resources: ["*"]
   verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: carol
+  namespace: prometheus
+subjects:
+- kind: ServiceAccount
+  name: carol
+  namespace: prometheus
+roleRef:
+  kind: ClusterRole
+  name: carol
+  apiGroup: rbac.authorization.k8s.io
